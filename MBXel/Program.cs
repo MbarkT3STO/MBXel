@@ -1,8 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Diagnostics;
+using System.Linq;
 using System.Text;
+using LinqToExcel;
 using MBXel.Enum;
+using Microsoft.Office.Interop.Excel;
 
 namespace MBXel
 {
@@ -33,14 +36,19 @@ namespace MBXel
 
             XLExporter exporter = new XLExporter();
 
-            var watch = Stopwatch.StartNew();
+            //await exporter.ExportAsync(Orders, Environment.GetFolderPath(Environment.SpecialFolder.Desktop) + "\\XXXX", Enums.XLExtension.Xlsx);
+            //Console.WriteLine("Saved");
+            //Console.WriteLine("Saved");
 
-           await exporter.ExportAsync(Orders, Environment.GetFolderPath(Environment.SpecialFolder.Desktop) + "\\XXXX", Enums.XLExtension.Xlsx);
-            Console.WriteLine("Saved");
 
-            watch.Stop();
+            var book = new ExcelQueryFactory(Environment.GetFolderPath(Environment.SpecialFolder.Desktop)+"\\XXXX.xlsx");
 
-            Console.WriteLine(watch.Elapsed);
+            var R = (from x in book.Worksheet("Feuil1") select new {ID = x["ID"], Client = x["Client"], Product = x["Product"], Total = x["Total"]});
+
+            foreach (var o in R)
+            {
+                Console.WriteLine($"{o.ID}, {o.Client}, {o.Product}, {o.Total}");
+            }
 
             Console.ReadKey();
         }
