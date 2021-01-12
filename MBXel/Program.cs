@@ -34,21 +34,41 @@ namespace MBXel
         static async System.Threading.Tasks.Task Main()
         {
 
-            XLExporter exporter = new XLExporter();
+            //---------------------------------------------------------------------------------------------------------
+            //Examples
+            //---------------------------------------------------------------------------------------------------------
+           
 
-            //await exporter.ExportAsync(Orders, Environment.GetFolderPath(Environment.SpecialFolder.Desktop) + "\\XXXX", Enums.XLExtension.Xlsx);
-            //Console.WriteLine("Saved");
-            //Console.WriteLine("Saved");
+
+            /*--------------------*/
+            /*Export data*/
+            /*--------------------*/
+
+            //XLExporter exporter = new XLExporter();
+
+            //await exporter.ExportAsync( Orders , Environment.GetFolderPath( Environment.SpecialFolder.Desktop ) + "\\XXXX" , Enums.XLExtension.Xlsx );
+            //Console.WriteLine( "Saved" );
 
 
-            var book = new ExcelQueryFactory(Environment.GetFolderPath(Environment.SpecialFolder.Desktop)+"\\XXXX.xlsx");
+            /*--------------------*/
+            /*Import data*/
+            /*--------------------*/
 
-            var R = (from x in book.Worksheet("Feuil1") select new {ID = x["ID"], Client = x["Client"], Product = x["Product"], Total = x["Total"]});
+            //var        importer = new XLImporter();
 
-            foreach (var o in R)
-            {
-                Console.WriteLine($"{o.ID}, {o.Client}, {o.Product}, {o.Total}");
-            }
+            //var Wbook = await importer.ImportAsync( Environment.GetFolderPath( Environment.SpecialFolder.Desktop ) + "\\XXXX.xlsx" , "Feuil1" );
+
+
+            /*--------------------*/
+            /*Use LINQ with the imported data*/
+            /*--------------------*/
+            //var R = (from x in Wbook select new { ID = x["ID"] , Client = x["Client"] , Product = x["Product"] , Total = x["Total"] }).ToList();
+
+            //R.ForEach( x =>
+            //           {
+            //               Console.WriteLine( $"{x.ID}, {x.Client}, {x.Product}, {x.Total}" );
+            //           } );
+            
 
             Console.ReadKey();
         }

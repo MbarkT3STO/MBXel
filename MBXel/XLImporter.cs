@@ -7,10 +7,14 @@ using LinqToExcel;
 
 namespace MBXel
 {
-    class XLReader
+
+    /// <summary>
+    /// Import data from an Excel file
+    /// </summary>
+    class XLImporter
     {
 
-        private IQueryable<Row> _Read(string filePath, string sheetName)
+        private IQueryable<Row> _Import(string filePath, string sheetName)
         {
             //Load the workbook
             var Wbook = new ExcelQueryFactory(filePath);
@@ -32,9 +36,9 @@ namespace MBXel
         /// <param name="filePath">The Excel file path</param>
         /// <param name="sheetName">The Worksheet name to be recovered data from</param>
         /// <returns></returns>
-        public IQueryable<Row> Read(string filePath, string sheetName)
+        public IQueryable<Row> Import(string filePath, string sheetName)
         {
-            return _Read(filePath, sheetName);
+            return _Import(filePath, sheetName);
         }
 
 
@@ -45,9 +49,9 @@ namespace MBXel
         /// <param name="filePath">The Excel file path</param>
         /// <param name="sheetName">The Worksheet name to be recovered data from</param>
         /// <returns></returns>
-        public Task<IQueryable<Row>> ReadAsync(string filePath, string sheetName)
+        public Task<IQueryable<Row>> ImportAsync(string filePath, string sheetName)
         {
-            return Task.Factory.StartNew(() => _Read(filePath, sheetName));
+            return Task.Factory.StartNew(() => _Import(filePath, sheetName));
         }
 
     }
