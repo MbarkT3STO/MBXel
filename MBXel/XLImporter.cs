@@ -11,7 +11,7 @@ namespace MBXel
     /// <summary>
     /// Import data from an Excel file
     /// </summary>
-    class XLImporter
+    public partial class XLImporter
     {
 
         private IQueryable<Row> _Import(string filePath, string sheetName)
