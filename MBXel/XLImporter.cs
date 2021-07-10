@@ -1,9 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using LinqToExcel;
+
 using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
-using LinqToExcel;
 
 namespace MBXel
 {
@@ -13,6 +11,8 @@ namespace MBXel
     /// </summary>
     public partial class XLImporter
     {
+
+        #region Private methods
 
         private IQueryable<Row> _Import(string filePath, string sheetName)
         {
@@ -25,9 +25,7 @@ namespace MBXel
             return R;
         }
 
-
-
-
+        #endregion
 
 
         /// <summary>
@@ -35,20 +33,17 @@ namespace MBXel
         /// </summary>
         /// <param name="filePath">The Excel file path</param>
         /// <param name="sheetName">The Worksheet name to be recovered data from</param>
-        /// <returns></returns>
+        /// <returns><see cref="IQueryable{Row}"/></returns>
         public IQueryable<Row> Import(string filePath, string sheetName)
         {
             return _Import(filePath, sheetName);
         }
 
-
-
         /// <summary>
-        /// Load an excel file (Sheet) data, Asynchronously
+        /// Asynchronously, <inheritdoc cref="Import(string, string)"/>
         /// </summary>
-        /// <param name="filePath">The Excel file path</param>
-        /// <param name="sheetName">The Worksheet name to be recovered data from</param>
-        /// <returns></returns>
+        /// <inheritdoc cref="Import(string, string)"/>
+        /// <returns><see cref="Task{IQueryable{Row}}"/></returns>
         public Task<IQueryable<Row>> ImportAsync(string filePath, string sheetName)
         {
             return Task.Factory.StartNew(() => _Import(filePath, sheetName));
